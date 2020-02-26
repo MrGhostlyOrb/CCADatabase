@@ -1,0 +1,12 @@
+--Question3
+SELECT FlightID, FlightDate, MaxCapacity - Count(NumSeats), MaxCapacity FROM Flight, FlightBooking WHERE Flight.FlightID = FlightBooking.FlightID AND FlightID = 'x';
+
+
+
+
+
+
+
+
+
+
