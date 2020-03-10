@@ -1,0 +1,16 @@
+extends layout.pug
+block content
+	h1=title
+	h3.alert-warning=message
+	main
+		p.results #{total} results found
+		table
+			tr
+				th Name
+				th Hourly_rate
+				th Title
+			each v, k in data 
+				tr
+					td #{v.name}
+					td #{v.hourly_rate}
+					td #{v.title}

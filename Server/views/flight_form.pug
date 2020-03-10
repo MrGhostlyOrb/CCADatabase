@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+	h1=title 
+	h3.alert-warning=message
+	if name
+		p.error your input data were: - FlightID:#{flight_id} , Job Title:#{jtitle}, Hour_rate:#{hour}
+	form(method="POST" action="/new_flight")
+		if error
+			p.text-danger Something goes wrong!!
+		label(for="inputText") FlightID
+			input(type='text' name='flight_id' id='flight_id' placeholder='FlightID' required autofocus)
+			label(for="inputText") FlightDate
+			input(type="text" name="flight_date" id="flight_date" placeholder="DD-MM-YYYY" required autofocus)
+			label(for="inputText") Origin
+			input(type="text" name="origin" id="origin" placeholder="Origin" required autofocus)
+			label(for="inputText") Destination
+			input(type="text" name="destination" id="destination" placeholder="Destination" required autofocus)
+			label(for="inputText") MaxCapacity
+			input(type="text" name="max_capacity" id="max_capacity" placeholder="MaxCapacity" required autofocus)
+			label(for="inputText") PricePerSeat
+			input(type="text" name="price_per_seat" id="price_per_seat" placeholder="PricePerSeat" required autofocus)
+		button(type="submit") Submit

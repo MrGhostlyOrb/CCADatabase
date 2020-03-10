@@ -1,78 +1,78 @@
-CREATE SCHEMA IF NOT EXISTS CourseworkTest;
-SET search_path to CourseworkTest;
+CREATE SCHEMA IF NOT EXISTS courseworktest;
+SET search_path to courseworktest;
 
-CREATE TABLE IF NOT EXISTS LeadCustomer 
+CREATE TABLE IF NOT EXISTS lead_customer
 (
-	CustomerID INTEGER UNIQUE PRIMARY KEY,
-	FirstName VARCHAR(20)  NOT NULL,
-	Surname VARCHAR(40)  NOT NULL,
-	BillingAddress VARCHAR(200)  NOT NULL,
+	customer_id INTEGER UNIQUE PRIMARY KEY,
+	first_name VARCHAR(20)  NOT NULL,
+	last_name VARCHAR(40)  NOT NULL,
+	billing_address VARCHAR(200)  NOT NULL,
 	email  VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Passenger 
+CREATE TABLE IF NOT EXISTS passenger 
 (
-	PassengerID INTEGER UNIQUE PRIMARY KEY,
-	FirstName VARCHAR(20)  NOT NULL,
-	Surname VARCHAR(40)  NOT NULL,
-	PassportNo VARCHAR(30) NOT NULL,
-	Nationality VARCHAR(30) NOT NULL,
-	Dob DATE NOT NULL
+	passenger_id INTEGER UNIQUE PRIMARY KEY,
+	first_name VARCHAR(20)  NOT NULL,  n 
+	last_name VARCHAR(40)  NOT NULL,
+	passport_no VARCHAR(30) NOT NULL,
+	nationality VARCHAR(30) NOT NULL,
+	dob DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Flight 
+CREATE TABLE IF NOT EXISTS flight 
 (
-	FlightID INTEGER UNIQUE PRIMARY KEY,
-	FlightDate TIMESTAMP NOT NULL, 
-	Origin VARCHAR(30) NOT NULL,
-	Destination VARCHAR(30) NOT NULL,
-	MaxCapacity INTEGER NOT NULL,
-	PricePerSeat DECIMAL NOT NULL
+	flight_id INTEGER UNIQUE PRIMARY KEY,
+	flight_date TIMESTAMP NOT NULL, 
+	origin VARCHAR(30) NOT NULL,
+	destination VARCHAR(30) NOT NULL,
+	max_capacity INTEGER NOT NULL,
+	price_per_seat DECIMAL NOT NULL
 
 );
 
-CREATE TABLE IF NOT EXISTS FlightBooking 
+CREATE TABLE IF NOT EXISTS flight_booking
 (
-	BookingID INTEGER UNIQUE PRIMARY KEY,
-	CustomerID INTEGER NOT NULL references LeadCustomer ON DELETE RESTRICT,
-	FlightID INTEGER NOT NULL references Flight, 
-	NumSeats INTEGER NOT NULL,
-	Status CHAR(1) NOT NULL,
-	BookingTime TIMESTAMP NOT NULL,
-	TotalCost DECIMAL
+	booking_id INTEGER UNIQUE PRIMARY KEY,
+	customer_id INTEGER NOT NULL references lead_customer ON DELETE RESTRICT,
+	flight_id INTEGER NOT NULL references flight, 
+	num_seats INTEGER NOT NULL,
+	status CHAR(1) NOT NULL,
+	booking_time TIMESTAMP NOT NULL,
+	total_cost DECIMAL
 	
 );
 
-CREATE TABLE IF NOT EXISTS SeatBooking
+CREATE TABLE IF NOT EXISTS seat_booking
 (
-	BookingID INTEGER NOT NULL references FlightBooking ON DELETE RESTRICT,
-	PassengerID INTEGER NOT NULL references Passenger,
-	SeatNumber CHAR(4) NOT NULL,
-	PRIMARY KEY(BookingID, PassengerID, SeatNumber)
+	booking_id INTEGER NOT NULL references flight_booking ON DELETE RESTRICT,
+	passenger_id INTEGER NOT NULL references passenger,
+	seat_number CHAR(4) NOT NULL,
+	PRIMARY KEY(booking_id, passenger_id, seat_number)
 	
 );
 
 --Lead Customer Example
-INSERT INTO LeadCustomer (CustomerID, FirstName, Surname, BillingAddress, email) VALUES (100, 'Dave', 'Lee', '123 Made Up Street', 'notreal@doesnotexist.com');
+INSERT INTO lead_customer (customer_id, first_name, last_name, billing_address, email) VALUES (100, 'Dave', 'Lee', '123 Made Up Street', 'notreal@doesnotexist.com');
 
 --Passenger Example
-INSERT INTO Passenger (PassengerID, FirstName, Surname, PassportNo, Nationality, Dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
 
 --Flight Example
-INSERT INTO Flight (FlightID, FlightDate, Origin, Destination, MaxCapacity, PricePerSeat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
 
 --FlightBooking Example
-INSERT INTO FlightBooking (BookingID, CustomerID, FlightID, NumSeats, Status, BookingTime, TotalCost) VALUES (500, 100, 101, 50, 'x', '1970-01-01 00:00:01', 1000.10);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'x', '1970-01-01 00:00:01', 1000.10);
 
 --SeatBooking Example
-INSERT INTO SeatBooking (BookingID, PassengerID, SeatNumber) VALUES (500, 100, '6A');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
 
 
-CREATE TRIGGER deleteTrigger ON CourseworkTest.LeadCustomer FOR DELETE AS
+CREATE TRIGGER deleteTrigger ON courseworktest.lead_customer FOR DELETE AS
 DELETE FROM 
 
-DROP TABLE LeadCustomer;
-DROP TABLE Passenger;
-DROP TABLE Flight;
-DROP TABLE FlightBooking;
-DROP TABLE SeatBooking;
+DROP TABLE lead_customer;
+DROP TABLE passenger;
+DROP TABLE flight;
+DROP TABLE flight_booking;
+DROP TABLE seat_booking;

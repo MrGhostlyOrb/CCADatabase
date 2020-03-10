@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+	h1=title 
+	h3.alert-warning=message
+	if name
+		p.error your input data were: - FlightID:#{flight_id} , Job Title:#{jtitle}, Hour_rate:#{hour}
+	form(method="POST" action="/new_passenger")
+		if error
+			p.text-danger Something goes wrong!!
+		label(for="inputText") PassengerID
+			input(type='text' name='passenger_id' id='passenger_id' placeholder='PassengerID' required autofocus)
+			label(for="inputText") FirstName
+			input(type="text" name="first_name" id="first_name" placeholder="FirstName" required autofocus)
+			label(for="inputText") LastName
+			input(type="text" name="last_name" id="last_name" placeholder="LastName" required autofocus)
+			label(for="inputText") PassportNo
+			input(type="text" name="passport_no" id="passport_no" placeholder="PassportNo" required autofocus)
+			label(for="inputText") Nationality
+			input(type="text" name="nationality" id="nationality" placeholder="Nationality" required autofocus)
+			label(for="inputText") DateOfBirth
+			input(type="text" name="dob" id="dob" placeholder="DateOfBirth" required autofocus)
+		button(type="submit") Submit
