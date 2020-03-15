@@ -164,19 +164,20 @@ app.post('/remove_customer', async function(req,res, next)
 	})
  
 // search project form
-app.get('/project',function(req,res)
+app.get('/check_avaliability',function(req,res)
 	{  
 	  res.render('project_form', {title:'Search Project information', message:'Enter project code'});
 	});
 
 //process search project 
-app.post('/search_project', async function(req,res, next)
+app.post('/check_avaliability', async function(req,res, next)
 	{  
 	    let data = {};
 		const pool = new pg.Pool(config);
 		const client = await pool.connect();
 		let pid = req.body.project_id;
-		const q = 'SELECT DISTINCT e.NAME, e.TITLE, p.project_id, p.DESCRIPTION, t.task_name FROM demo.emp as e JOIN DEMO.TASK as t ON e.EMP_ID = t.EMP_ID JOIN DEMO.PROJECT as p ON t.PROJECT_ID=p.PROJECT_ID and p.project_id = \'' + pid + '\' ORDER BY NAME,title ;';
+		//TODO Add search by flight id
+		const q = 'SELECT flight_id, flight_date, SUM(max_capacity - num_seats) FROM flight_booking, flight WHERE flight_booking.flight_id = flight.flight_id;';
 	    console.log(q)
 		// callback
 		client.query(q, (err, results) => {
@@ -187,13 +188,13 @@ app.post('/search_project', async function(req,res, next)
 			client.release();
 			data = results.rows;
 			count = results.rows.length;
-		    console.log(data); // 
-			console.log(req.body.project_id)
+		    console.log(data); 
+			console.log(req.body.project_id);
 			res.render('presults', {title:'Search Project information', message:'demo is successfull!', total:count, data:data });	
 		  }
 
 		});
-		})	
+	})	
 
 // query 1
 app.get('/qa', async function(req,res)

@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+	h1=title 
+	h3.alert-warning=message
+	if name
+		p.error your input data were: - FlightID:#{flight_id} , Job Title:#{jtitle}, Hour_rate:#{hour}
+	form(method="POST" action="/check_avaliability")
+		if error
+			p.text-danger Something goes wrong!!
+		label(for="inputText") FlightID
+			input(type='text' name='flight_ID' id='flight_ID' placeholder='FlightID' required autofocus)
+		
+		button(type="submit") Submit
