@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS lead_customer
 CREATE TABLE IF NOT EXISTS passenger 
 (
 	passenger_id INTEGER UNIQUE PRIMARY KEY,
-	first_name VARCHAR(20)  NOT NULL,  n 
+	first_name VARCHAR(20)  NOT NULL,
 	last_name VARCHAR(40)  NOT NULL,
 	passport_no VARCHAR(30) NOT NULL,
 	nationality VARCHAR(30) NOT NULL,

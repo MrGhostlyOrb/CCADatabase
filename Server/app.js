@@ -23,21 +23,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug');
 
-// home page
+//Home page
 app.get('/',function(req,res)
 {  
   res.render('index', {title:'Coursework Test', message:'Postgres NodeJS and JSON processing demo'});
 });
 
 
-// add new flight form
+//Add a new flight
 app.get('/flight_form',function(req,res)
 {  
   res.render('flight_form', {title:'Add a Flight', message:'Form to add a flight to the database'});
 });
 
 
-// process add new flight
+//Process a new flight
 app.post('/new_flight', async function(req,res, next)
 {  
     let results;
@@ -72,6 +72,7 @@ app.get('/customer_form',function(req,res)
   res.render('customer_form', {title:'Add a Customer', message:'Form to add a customer to the database'});
 });
 	
+//Process a new customer
 app.post('/new_customer', async function(req,res, next)
 {  
     let results;
@@ -100,6 +101,7 @@ app.post('/new_customer', async function(req,res, next)
 	});
 	})
 	
+//Process new passenger
 app.get('/passenger_form',function(req,res)
 {  
   res.render('passenger_form', {title:'Add a Passenger', message:'Form to add a passenger to the database'});
@@ -134,6 +136,7 @@ app.post('/new_passenger', async function(req,res, next)
 	});
 	})
  
+//Remove a customer
 app.get('/remove_customer_form',function(req,res)
 {  
   res.render('remove_customer_form', {title:'Remove a Customer', message:'Form to remove a customer from the database'});
@@ -163,14 +166,47 @@ app.post('/remove_customer', async function(req,res, next)
 	});
 	})
  
-// search project form
+//Check avaliability
 app.get('/check_avaliability',function(req,res)
 	{  
-	  res.render('project_form', {title:'Search Project information', message:'Enter project code'});
+	  res.render('check_avaliability', {title:'Check avaliability', message:'Enter Flight ID'});
 	});
 
-//process search project 
+//Check avaliability
 app.post('/check_avaliability', async function(req,res, next)
+	{  
+	    let data = {};
+		const pool = new pg.Pool(config);
+		const client = await pool.connect();
+		let pid = req.body.project_id;
+		//TODO Add search by flight id
+		const q = 'SELECT flight_id, flight_date, SUM(max_capacity - num_seats) FROM flight_booking, flight WHERE flight_booking.flight_id = flight.flight_id AND flight.flight_id = \'' + flight_id + '\';';
+	    console.log(q)
+		// callback
+		client.query(q, (err, results) => {
+		  if (err) {
+		    console.log(err.stack)
+		    res.render('check_avaliability', {title:'Check avaliability', message:'Sorry something went wrong! The data has not been processed'});
+		  } else {
+			client.release();
+			data = results.rows;
+			count = results.rows.length;
+		    console.log(data); 
+			console.log(req.body.project_id);
+			res.render('presults', {title:'Check avaliability', message:'Successfully found flight details', total:count, data:data });	
+		  }
+
+		});
+	})	
+	
+//Check status
+app.get('/check_status',function(req,res)
+	{  
+	  res.render('check_status', {title:'Check status', message:'Enter Flight ID'});
+	});
+
+//Check status
+app.post('/check_status', async function(req,res, next)
 	{  
 	    let data = {};
 		const pool = new pg.Pool(config);
@@ -183,46 +219,47 @@ app.post('/check_avaliability', async function(req,res, next)
 		client.query(q, (err, results) => {
 		  if (err) {
 		    console.log(err.stack)
-		    res.render('project_form', {title:'Search Project information', message:'Sorry something went wrong! The data has not been processed'});
+		    res.render('check_status', {title:'Check status', message:'Sorry something went wrong! The data has not been processed'});
 		  } else {
 			client.release();
 			data = results.rows;
 			count = results.rows.length;
 		    console.log(data); 
 			console.log(req.body.project_id);
-			res.render('presults', {title:'Search Project information', message:'demo is successfull!', total:count, data:data });	
+			res.render('presults', {title:'Check status', message:'Successfully found flight details', total:count, data:data });	
 		  }
 
 		});
 	})	
 
-// query 1
-app.get('/qa', async function(req,res)
+
+//Ranked lead customer
+app.get('/ranked_list', async function(req,res)
 {   
   let data = {};
   const pool = new pg.Pool(config);
   const client = await pool.connect();
-  const qa = 'select * from demo.emp;';
+  const qa = 'SELECT lead_customer.customer_id, first_name, last_name, SUM(booking_id) total_cost FROM FROM customer.customer_id WHERE ' + x + 'lead_customer, flight_booking WHERE lead_customer.customer_id = flight_booking.customer_id GROUP BY lead_customer.customer_id;';
   let results = await client.query(qa);
   client.release();
   data = results.rows;
   count = results.rows.length;
-  console.log(data);  
+  console.log(data);
   console.log(count);
-  res.render('qa', {title:'Node JS & Postgres Demo - Query results', message:'Testing Qa results...', total:count, data:data});
+  res.render('ranked_list', {title:'Ranked lead customers - Query results', message:'Ranked list is : ', total:count, data:data});
 });
 
 // query 2
 app.get('/qb', async function(req,res)
-{   
+{
   let data = {};
   const pool = new pg.Pool(config)
   const client = await pool.connect()
   const q = "select name, hourly_rate, title from demo.emp where title = 'Analyst' order by name ASC;";
   let results = await client.query(q);
-  data = results.rows
+  data = results.rows;
   count = results.rows.length;
-  console.log(data);  
+  console.log(data);
   console.log(count);
   res.render('qb', {title:'Node JS & Postgres Demo - Query results', message:'Testing Qb results...', total:count, data:data});
 });
@@ -235,7 +272,7 @@ app.get('/qc', async function(req,res)
   const client = await pool.connect()
   const q = 'select distinct title from demo.emp;';
   let results = await client.query(q);
-  data = results.rows
+  data = results.rows;
   count = results.rows.length;
   console.log(data);  
   console.log(count);
@@ -250,7 +287,7 @@ app.get('/qd', async function(req,res)
   const client = await pool.connect()
   const q = 'select name, hourly_rate*40 from demo.emp;';
   let results = await client.query(q);
-  data = results.rows
+  data = results.rows;
   count = results.rows.length;
   console.log(data);  
   console.log(count);
@@ -265,7 +302,7 @@ app.get('/qe', async function(req,res)
   const client = await pool.connect()
   const q = 'select name, hourly_rate*40 as Weekly_Cost from demo.emp;';
   let results = await client.query(q);
-  data = results.rows
+  data = results.rows;
   count = results.rows.length;
   console.log(data);  
   console.log(count);
