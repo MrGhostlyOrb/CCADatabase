@@ -1,6 +1,12 @@
 CREATE SCHEMA IF NOT EXISTS courseworktest;
 SET search_path to courseworktest;
 
+DROP TABLE IF EXISTS lead_customer CASCADE;
+DROP TABLE IF EXISTS passenger CASCADE;
+DROP TABLE IF EXISTS flight CASCADE;
+DROP TABLE IF EXISTS flight_booking CASCADE;
+DROP TABLE IF EXISTS seat_booking CASCADE;
+
 CREATE TABLE IF NOT EXISTS lead_customer
 (
 	customer_id INTEGER UNIQUE PRIMARY KEY,
