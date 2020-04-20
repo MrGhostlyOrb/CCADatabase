@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS passenger
 	last_name VARCHAR(40)  NOT NULL,
 	passport_no VARCHAR(30) NOT NULL,
 	nationality VARCHAR(30) NOT NULL,
-	dob DATE NOT NULL
+	dob DATE NOT NULL,
+		CONSTRAINT dob_CHK CHECK(dob < current_date),
 );
 
 CREATE TABLE IF NOT EXISTS flight 
@@ -45,6 +46,7 @@ CREATE TABLE IF NOT EXISTS flight_booking
 	num_seats INTEGER NOT NULL,
 	status CHAR(1) NOT NULL,
 	booking_time TIMESTAMP NOT NULL,
+		CONSTRAINT booking_time_CHK CHECK(booking_time >= current_date),
 	total_cost DECIMAL
 	
 );
