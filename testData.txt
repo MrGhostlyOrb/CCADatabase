@@ -1,12 +1,20 @@
---Question3
-SELECT FlightID, FlightDate, MaxCapacity - Count(NumSeats), MaxCapacity FROM Flight, FlightBooking WHERE Flight.FlightID = FlightBooking.FlightID AND FlightID = 'x';
+INSERT INTO flight_booking VALUES(101, 109, 110, 5, 'r', '2020-07-29', 52);
+INSERT INTO lead_customer VALUES(109, 'TestFirstName', 'TestLastName', 'TestAddress', 'TestEmail');
+INSERT INTO passenger VALUES(200, 'TestFirstName', 'TestLastName', 123456789, 'GB', '1999-12-06');
+INSERT INTO seat_booking VALUES(101, 200, '1A');
 
 
+--Lead Customer Example
+INSERT INTO lead_customer (customer_id, first_name, last_name, billing_address, email) VALUES (100, 'Dave', 'Lee', '123 Made Up Street', 'notreal@doesnotexist.com');
 
+--Passenger Example
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
 
+--Flight Example
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
 
+--FlightBooking Example
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'x', '1970-01-01 00:00:01', 1000.10);
 
-
-
-
-
+--SeatBooking Example
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');

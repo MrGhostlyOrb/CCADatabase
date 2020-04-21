@@ -20,19 +20,18 @@ INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationa
 --Should delete lead customer where customer ID = 3
 
 --b)
---Run task 8 for bboking id 504
+--Run task 8 for booking id 504
 
 --c)
 --Delete lead cutomer id 3
 
 --3
 --a)
---Shows avaliable seats as 0
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", COALESCE(SUM(flight.max_capacity) - SUM(flight_booking.num_seats),0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'r' OR flight_booking.status is null GROUP BY flight.flight_id, num_seats;
 
 --b)
 --Should be for flight 103
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", COALESCE(SUM(flight.max_capacity) - SUM(flight_booking.num_seats),0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight.flight_id = '110' GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", SUM(flight.max_capacity) - SUM(flight_booking.num_seats) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight.flight_id = '110' GROUP BY flight.flight_id, num_seats;
 
 --c)
 --Should be for destination BRS
@@ -42,10 +41,10 @@ SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0)
 
 --4
 --Should check status of all seats for flight 101
-SELECT flight.flight_id, flight.flight_date, SUM(max_capacity - num_seats) FROM flight_booking, flight WHERE flight_booking.flight_id = flight.flight_id AND flight.flight_id = '109' GROUP BY flight.flight_id;
+SELECT flight.flight_id, seat_booking.seat_number, flight_booking.status FROM flight, flight_booking, seat_booking WHERE flight.flight_id = flight_booking.flight_id AND flight_booking.booking_id = seat_booking.booking_id AND flight.flight_id = 101;
 
 --5
---Ranked list of all lead customers from hgights total cost to lowest
+--Ranked list of all lead customers from highest total cost to lowest
 
 --6
 --a)

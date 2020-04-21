@@ -239,7 +239,7 @@ app.get('/ranked_list', async function(req,res)
   let data = {};
   const pool = new pg.Pool(config);
   const client = await pool.connect();
-  const qa = 'SELECT lead_customer.customer_id, first_name, last_name, SUM(booking_id) total_cost FROM FROM customer.customer_id WHERE ' + x + 'lead_customer, flight_booking WHERE lead_customer.customer_id = flight_booking.customer_id GROUP BY lead_customer.customer_id;';
+  const qa = 'SELECT lead_customer.customer_id, first_name, last_name, SUM(booking_id) total_cost FROM customer.customer_id WHERE ' + x + 'lead_customer, flight_booking WHERE lead_customer.customer_id = flight_booking.customer_id GROUP BY lead_customer.customer_id;';
   let results = await client.query(qa);
   client.release();
   data = results.rows;

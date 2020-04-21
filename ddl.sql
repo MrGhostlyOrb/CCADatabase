@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS passenger
 	passport_no VARCHAR(30) NOT NULL,
 	nationality VARCHAR(30) NOT NULL,
 	dob DATE NOT NULL,
-		CONSTRAINT dob_CHK CHECK(dob < current_date),
+		CONSTRAINT dob_CHK CHECK(dob < current_date)
 );
 
 CREATE TABLE IF NOT EXISTS flight 
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS flight_booking
 	flight_id INTEGER NOT NULL references flight, 
 	num_seats INTEGER NOT NULL,
 	status CHAR(1) NOT NULL,
+		CONSTRAINT status_CHK CHECK(status LIKE 'r%' OR status LIKE 'c%'),
 	booking_time TIMESTAMP NOT NULL,
 		CONSTRAINT booking_time_CHK CHECK(booking_time >= current_date),
 	total_cost DECIMAL
@@ -60,27 +61,5 @@ CREATE TABLE IF NOT EXISTS seat_booking
 	
 );
 
---Lead Customer Example
-INSERT INTO lead_customer (customer_id, first_name, last_name, billing_address, email) VALUES (100, 'Dave', 'Lee', '123 Made Up Street', 'notreal@doesnotexist.com');
-
---Passenger Example
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-
---Flight Example
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-
---FlightBooking Example
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'x', '1970-01-01 00:00:01', 1000.10);
-
---SeatBooking Example
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
-
-
 CREATE TRIGGER deleteTrigger ON courseworktest.lead_customer FOR DELETE AS
 DELETE FROM 
-
-DROP TABLE lead_customer;
-DROP TABLE passenger;
-DROP TABLE flight;
-DROP TABLE flight_booking;
-DROP TABLE seat_booking;
