@@ -1,5 +1,5 @@
-INSERT INTO flight_booking VALUES(101, 109, 110, 5, 'r', '2020-07-29', 52);
 INSERT INTO lead_customer VALUES(109, 'TestFirstName', 'TestLastName', 'TestAddress', 'TestEmail');
+INSERT INTO flight_booking VALUES(101, 109, 110, 5, 'r', '2020-07-29', 52);
 INSERT INTO passenger VALUES(200, 'TestFirstName', 'TestLastName', 123456789, 'GB', '1999-12-06');
 INSERT INTO seat_booking VALUES(101, 200, '1A');
 
