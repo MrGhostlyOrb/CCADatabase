@@ -27,21 +27,23 @@ DELETE FROM lead_customer WHERE customer_id = 3;
 DELETE FROM lead_customer WHERE customer_id = 3;
 --3
 --a)
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'r' OR flight_booking.status is null GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'R' OR flight_booking.status is null GROUP BY flight.flight_id, num_seats;
 
 --b)
 --Should be for flight 103
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'r' OR flight_booking.status is null AND flight.flight_id = 103 GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'R' OR flight_booking.status is null AND flight.flight_id = 103 GROUP BY flight.flight_id, num_seats;
 
 --c)
 --Should be for destination BRS
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'R' OR flight_booking.status is null AND flight.destination = 'BRS' GROUP BY flight.flight_id, num_seats;
 
 --d)
 --Should be for date '2020-07-24'
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flight_booking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flight_booking ON flight.flight_id = flight_booking.flight_id WHERE flight_booking.status = 'R' OR flight_booking.status is null AND flight.flight_date = '2020-07-24' GROUP BY flight.flight_id, num_seats;
 
 --4
 --Should check status of all seats for flight 101
-SELECT flight.flight_id, seat_booking.seat_number, flight_booking.status FROM flight, flight_booking, seat_booking WHERE flight.flight_id = flight_booking.flight_id AND flight_booking.booking_id = seat_booking.booking_id AND flight.flight_id = 101;
+SELECT flight.flight_id, seat_booking.seat_number, flight_booking.status, COUNT(flight_booking.status = 'R') AS "Reserved", COUNT(flight_booking.status = 'C') AS "Cancelled" FROM flight, flight_booking, seat_booking WHERE flight.flight_id = flight_booking.flight_id AND flight_booking.booking_id = seat_booking.booking_id AND flight.flight_id = 110 GROUP BY flight.flight_id, seat_booking.seat_number, flight_booking.status;
 
 --5
 --Ranked list of all lead customers from highest total cost to lowest
@@ -50,6 +52,13 @@ SELECT lead_customer.customer_id, CONCAT(first_name , ' ' , last_name ) AS "Full
 --6
 --a)
 INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) SELECT 513, 12, 103, 3, 'R', current_date, price_per_seat FROM flight * num_seats WHERE EXISTS (SELECT * FROM lead_customer WHERE customer_id = 12 OR last_name = 'Sayers');
+
+--b)
+
+--c)
+
+--d)
+
 
 --7
 --a)
