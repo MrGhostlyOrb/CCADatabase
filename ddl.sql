@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS flight_booking
 	flight_id INTEGER NOT NULL references flight, 
 	num_seats INTEGER NOT NULL,
 	status CHAR(1) NOT NULL,
-		CONSTRAINT status_CHK CHECK(status LIKE 'r%' OR status LIKE 'c%'),
+		CONSTRAINT status_CHK CHECK(status LIKE 'R%' OR status LIKE 'C%'),
 	booking_time TIMESTAMP NOT NULL,
 		CONSTRAINT booking_time_CHK CHECK(booking_time >= current_date),
 	total_cost DECIMAL

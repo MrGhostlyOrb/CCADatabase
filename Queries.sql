@@ -49,6 +49,7 @@ SELECT lead_customer.customer_id, CONCAT(first_name , ' ' , last_name ) AS "Full
 
 --6
 --a)
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) SELECT 513, 12, 103, 3, 'R', current_date, price_per_seat FROM flight * num_seats WHERE EXISTS (SELECT * FROM lead_customer WHERE customer_id = 12 OR last_name = 'Sayers');
 
 --7
 --a)
