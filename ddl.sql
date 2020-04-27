@@ -1,13 +1,13 @@
-CREATE SCHEMA IF NOT EXISTS courseworktest;
-SET search_path to courseworktest;
+CREATE SCHEMA IF NOT EXISTS Coursework;
+SET search_path to Coursework;
 
-DROP TABLE IF EXISTS lead_customer CASCADE;
-DROP TABLE IF EXISTS passenger CASCADE;
-DROP TABLE IF EXISTS flight CASCADE;
-DROP TABLE IF EXISTS flight_booking CASCADE;
-DROP TABLE IF EXISTS seat_booking CASCADE;
+DROP TABLE IF EXISTS LeadCustomer CASCADE;
+DROP TABLE IF EXISTS Passenger CASCADE;
+DROP TABLE IF EXISTS Flight CASCADE;
+DROP TABLE IF EXISTS FlightBooking CASCADE;
+DROP TABLE IF EXISTS SeatBooking CASCADE;
 
-CREATE TABLE IF NOT EXISTS lead_customer
+CREATE TABLE IF NOT EXISTS LeadCustomer
 (
 	customer_id INTEGER UNIQUE PRIMARY KEY,
 	first_name VARCHAR(20)  NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS lead_customer
 	email  VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS passenger 
+CREATE TABLE IF NOT EXISTS Passenger 
 (
 	passenger_id INTEGER UNIQUE PRIMARY KEY,
 	first_name VARCHAR(20)  NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS passenger
 		CONSTRAINT dob_CHK CHECK(dob < current_date)
 );
 
-CREATE TABLE IF NOT EXISTS flight 
+CREATE TABLE IF NOT EXISTS Flight 
 (
 	flight_id INTEGER UNIQUE PRIMARY KEY,
 	flight_date TIMESTAMP NOT NULL, 
@@ -38,11 +38,11 @@ CREATE TABLE IF NOT EXISTS flight
 
 );
 
-CREATE TABLE IF NOT EXISTS flight_booking
+CREATE TABLE IF NOT EXISTS FlightBooking
 (
 	booking_id INTEGER UNIQUE PRIMARY KEY,
-	customer_id INTEGER NOT NULL references lead_customer ON DELETE RESTRICT,
-	flight_id INTEGER NOT NULL references flight, 
+	customer_id INTEGER NOT NULL references LeadCustomer ON DELETE RESTRICT,
+	flight_id INTEGER NOT NULL references Flight, 
 	num_seats INTEGER NOT NULL,
 	status CHAR(1) NOT NULL,
 		CONSTRAINT status_CHK CHECK(status LIKE 'R%' OR status LIKE 'C%'),
@@ -52,14 +52,11 @@ CREATE TABLE IF NOT EXISTS flight_booking
 	
 );
 
-CREATE TABLE IF NOT EXISTS seat_booking
+CREATE TABLE IF NOT EXISTS SeatBooking
 (
-	booking_id INTEGER NOT NULL references flight_booking ON DELETE RESTRICT,
-	passenger_id INTEGER NOT NULL references passenger,
+	booking_id INTEGER NOT NULL references FlightBooking ON DELETE RESTRICT,
+	passenger_id INTEGER NOT NULL references Passenger,
 	seat_number CHAR(4) NOT NULL,
 	PRIMARY KEY(booking_id, passenger_id, seat_number)
 	
-);
-
-CREATE TRIGGER deleteTrigger ON courseworktest.lead_customer FOR DELETE AS
-DELETE FROM 
+); 

@@ -1,0 +1,110 @@
+DELETE FROM SeatBooking;
+DELETE FROM FlightBooking;
+DELETE FROM Passenger;
+DELETE FROM LeadCustomer;
+DELETE FROM Flight;
+
+--insert lead customers;
+INSERT INTO LeadCustomer VALUES (1, 'Andrew','Brown','15 The Street, Leeds','A.Brown@gmail.com');
+INSERT INTO LeadCustomer VALUES (2, 'Chris', 'Dawes', 'The Barn, Wymondham,Norfok','C.Dawes@hotmail.com');
+INSERT INTO LeadCustomer VALUES (3, 'Eve','French','7 Lincon St,London','E.French@gmail.com');
+INSERT INTO LeadCustomer VALUES (4, 'Gary','Harris', '25 The Close, Norwich', 'G.Harris@uea.ac.uk');
+INSERT INTO LeadCustomer VALUES (5, 'Ian', 'Jones', '26 Newton Close, Bristol','I.Jones@bbsrc.ac.uk');
+INSERT INTO LeadCustomer VALUES (6, 'Karen', 'Long','3 Peter Meyer Road, Bristol','K.Long2@hotmail.com');
+INSERT INTO LeadCustomer VALUES (7, 'Mike', 'Norris','5 Pentoville Road, Leeds','M.Norris@gmail.com');
+INSERT INTO LeadCustomer VALUES (8, 'Peter', 'Qi','22 Fosters Close, Birmingham','P.Qi@pcc.co.uk');
+INSERT INTO LeadCustomer VALUES (9, 'Rachel', 'Smith', '39a Morley Lane, Southampton','R.Smith@hotmail.com');
+
+
+--insert flights
+SET datestyle='ISO, DMY';
+INSERT INTO Flight VALUES (100, '22/7/2020','LGW', 'MAN', 10,40);
+INSERT INTO Flight VALUES (101, '24/7/2020', 'MAN', 'LGW', 12,50);
+INSERT INTO Flight VALUES (102, '23/7/2020', 'LHR', 'MAN', 10,35);
+INSERT INTO Flight VALUES (103, '24/7/2020', 'LHR', 'BRS',6,30);
+INSERT INTO Flight VALUES (104, '25/7/2020', 'STN', 'GLA', 10,55);
+INSERT INTO Flight VALUES (105, '26/7/2020', 'MAN', 'LHT', 12,30);
+INSERT INTO Flight VALUES (106, '27/7/2020', 'STN', 'ABZ', 10,50);
+INSERT INTO Flight VALUES (107, '28/7/2020', 'LGW', 'BHD', 10,70);
+
+--insert passengers
+INSERT INTO passenger VALUES (1001,'John','White','xd788883','British','30/12/1959');
+INSERT INTO passenger VALUES (1002,'Kathi','White','55788883','British','28/6/1966');
+INSERT INTO passenger VALUES (1003,'Milly','White','489843984','British','28/6/2006');
+INSERT INTO passenger VALUES (1004,'Paul','White','498343984','British','29/12/2011');
+INSERT INTO passenger VALUES (1005,'Peter','Lewis','2779903','British','30/9/1971');
+INSERT INTO passenger VALUES (1006,'Barbara','Lennon','8857828','Spanish','30/12/1993');
+INSERT INTO passenger VALUES (1007,'Rose','Lennon','834783743','Spanish','12/07/2018');
+INSERT INTO passenger VALUES (1008,'Marian','Smyth','77478383','French','22/12/1991');
+INSERT INTO passenger VALUES (1009,'July','Smyth','88748788','French','17/1/2015');
+INSERT INTO passenger VALUES (1010,'OLiver','Smyth','9309666','French','05/12/2018');
+INSERT INTO passenger VALUES (1011,'Rocio','Montesi','8889499','Italian','16/04/1990');
+INSERT INTO passenger VALUES (1012,'Malcolm','Kings','93949394','British','16/04/1987');
+INSERT INTO passenger VALUES (1013,'Mary','Kings','8577436','British','22/02/2015');
+INSERT INTO passenger VALUES (1014,'Pearl','Lovell','43899433','British','21/06/1960');
+INSERT INTO passenger VALUES (1015,'John','Simmonds','84738743','British','19/7/1990');
+INSERT INTO passenger VALUES (1016,'Peter','Snow','88488388','British','12/7/1982');
+INSERT INTO passenger VALUES (1017,'Marguerite','Snow',' 489348938','British','17/4/2011');
+INSERT INTO passenger VALUES (1018,'Rose','Snow',' 488482834','British','19/7/2016');
+INSERT INTO passenger VALUES (1019,'John','Sympson',' 33438473','British','19/7/1995');
+INSERT INTO passenger VALUES (1020,'Bob','Mencap',' 334387747','British','21/2/1991');
+INSERT INTO passenger VALUES (1021,'Pedro','Garcia','xd88388','Spanish','12/8/1976');
+INSERT INTO passenger VALUES (1022,'Maria','Perez',' sf988938','Spanish','17/5/1981');
+INSERT INTO passenger VALUES (1023,'Olaya','Garcia',' xd999888','Spanish','22/7/2016');
+INSERT INTO passenger VALUES (1024,'John','Pauls',' 3746263','British','30/7/1998');
+
+--insert flightbookings
+insert into flightbooking values (500,1,100,4,'R',NOW(),160);
+insert into flightbooking values (501,2,100,3,'R',NOW(),120);
+insert into flightbooking values (502,2,100,3,'R',NOW (),120);
+insert into flightbooking values (503,1,101,4,'R',NOW(),200);
+insert into FlightBooking values (504,3,101,1,'R',NOW(),50);
+insert into FlightBooking values (505,4,102,3,'R',NOW(),105);
+insert into FlightBooking values (506,5,102,1,'R',NOW(),35);
+insert into FlightBooking values (507,4,103,3,'R',NOW(),90);
+insert into FlightBooking values (508,6,103,1,'R',NOW(),30);
+insert into FlightBooking values (509,4,104,3,'R',NOW(),165);
+insert into FlightBooking values (510,7,105,1,'R',NOW(),30);
+
+
+--delete from seatbooking;
+--insert seatbookings
+INSERT INTO SeatBooking values(500,1001,'1A');
+INSERT INTO SeatBooking values(500,1002,'1B');
+INSERT INTO SeatBooking values(500,1003,'1C');
+INSERT INTO SeatBooking values(500,1004,'1D');
+INSERT INTO SeatBooking values(501,1005,'2A');
+INSERT INTO SeatBooking values(501,1006,'2B');
+INSERT INTO SeatBooking values(501,1007,'2C');
+INSERT INTO SeatBooking values(502,1008,'3A');
+INSERT INTO SeatBooking values(502,1009,'3B');
+INSERT INTO SeatBooking values(502,1010,'3C');
+INSERT INTO SeatBooking values(503,1001,'4A');
+INSERT INTO SeatBooking values(503,1002,'4B');
+INSERT INTO SeatBooking values(503,1003,'4C');
+INSERT INTO SeatBooking values(503,1004,'4D');
+INSERT INTO SeatBooking values(504,1014,'5A');
+INSERT INTO SeatBooking values(505,1011,'5B');
+INSERT INTO SeatBooking values(505,1012,'5C');
+INSERT INTO SeatBooking values(505,1013,'5D');
+INSERT INTO SeatBooking values(506,1015,'6A');
+INSERT INTO SeatBooking values(507,1016,'6B');
+INSERT INTO SeatBooking values(507,1017,'6C');
+INSERT INTO SeatBooking values(507,1018,'6D');
+INSERT INTO SeatBooking values(508,1015,'7A');
+INSERT INTO SeatBooking values(509,1021,'7B');
+INSERT INTO SeatBooking values(509,1022,'7C');
+INSERT INTO SeatBooking values(509,1023,'7D');
+
+
+
+select count(*) from LeadCustomer;
+-- Should give 9 rows
+select count(*) from flight;
+-- Should give 8 rows
+select count(*) from passenger;
+-- Should give 24 rows;
+select  count(*) from FlightBooking;
+-- Should give 11 rows;
+select  count(*) from SeatBooking;
+-- Should give 26 rows;
