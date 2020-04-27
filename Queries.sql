@@ -18,28 +18,28 @@ INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationa
 --2
 --a)
 --Should delete lead customer where customer ID = 3
-DELETE FROM lead_customer WHERE customer_id = 3;
+DELETE FROM leadcustomer WHERE customer_id = 3;
 --b)
 --Run task 8 for booking id 504
 
 --c)
 --Delete lead cutomer id 3
-DELETE FROM lead_customer WHERE customer_id = 3;
+DELETE FROM leadcustomer WHERE customer_id = 3;
 --3
 --a)
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flightbooking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flightbooking.status = 'R' OR flightbooking.status is null GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(SUM(flightbooking.num_seats),0) AS "Booked Seats", COALESCE(flight.max_capacity - SUM(flightbooking.num_seats),0)  AS "Avaliable Seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id GROUP BY flight.flight_id;
 
 --b)
 --Should be for flight 103
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flightbooking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flightbooking.status = 'R' AND flight.flight_id = 103 OR flightbooking.status is null AND flight.flight_id = 103 GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(SUM(flightbooking.num_seats),0) AS "Booked Seats", COALESCE(flight.max_capacity - SUM(flightbooking.num_seats),0)  AS "Avaliable Seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flight.flight_id = 103 GROUP BY flight.flight_id;
 
 --c)
 --Should be for destination BRS
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flightbooking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flightbooking.status = 'R' AND flight.destination = 'BRS' OR flightbooking.status is null AND flight.destination = 'BRS' GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(SUM(flightbooking.num_seats),0) AS "Booked Seats", COALESCE(flight.max_capacity - SUM(flightbooking.num_seats),0)  AS "Avaliable Seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flight.destination = 'BRS' GROUP BY flight.flight_id;
 
 --d)
 --Should be for date '2020-07-24'
-SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(num_seats,0) AS "Booked Seats", flight.max_capacity - COALESCE(flightbooking.num_seats,0) AS "Avaliable seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flightbooking.status = 'R' AND flight.flight_date = '2020-07-24' OR flightbooking.status is null AND flight.flight_date = '2020-07-24' GROUP BY flight.flight_id, num_seats;
+SELECT flight.flight_id, flight.flight_date, max_capacity, COALESCE(SUM(flightbooking.num_seats),0) AS "Booked Seats", COALESCE(flight.max_capacity - SUM(flightbooking.num_seats),0)  AS "Avaliable Seats" FROM flight LEFT JOIN flightbooking ON flight.flight_id = flightbooking.flight_id WHERE flight.flight_date = '2020-07-24' GROUP BY flight.flight_id;
 
 --4
 --Should check status of all seats for flight 101
@@ -51,7 +51,7 @@ SELECT leadcustomer.customer_id, CONCAT(first_name , ' ' , last_name ) AS "Full 
 
 --6
 --a)
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) SELECT 513, 12, 103, 3, 'R', current_date, price_per_seat FROM flight * num_seats WHERE EXISTS (SELECT * FROM lead_customer WHERE customer_id = 12 OR last_name = 'Sayers');
+INSERT INTO flightbooking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) SELECT 513, 12, 103, 3, 'R', current_date, price_per_seat FROM flight * num_seats WHERE EXISTS (SELECT * FROM leadcustomer WHERE customer_id = 12 OR last_name = 'Sayers');
 
 --b)
 
@@ -62,18 +62,18 @@ INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, statu
 
 --7
 --a)
-INSERT INTO seat_booking(booking_id, passenger_id, seat_number) VALUES (510, 1024, '8A');
+INSERT INTO seatbooking(booking_id, passenger_id, seat_number) VALUES (510, 1024, '8A');
 
 --b)
-INSERT INTO seat_booking(booking_id, passenger_id, seat_number) VALUES (510, 1025, '8B');
+INSERT INTO seatbooking(booking_id, passenger_id, seat_number) VALUES (510, 1025, '8B');
 
 --8
 --a)
-SELECT * FROM flight_booking WHERE booking_id = 509;
+SELECT * FROM flightbooking WHERE booking_id = 509;
 
 --b)
-SELECT flight.flight_id, seat_booking.seat_number, flight_booking.status FROM flight, flight_booking, seat_booking WHERE flight.flight_id = flight_booking.flight_id AND flight_booking.booking_id = seat_booking.booking_id AND flight.flight_id = 504;
+SELECT flight.flight_id, seatbooking.seat_number, flightbooking.status FROM flight, flightbooking, seatbooking WHERE flight.flight_id = flightbooking.flight_id AND flightbooking.booking_id = seatbooking.booking_id AND flight.flight_id = 504;
 
 --c)
-SELECT lead_customer.customer_id, CONCAT(first_name , ' ' , last_name ) AS "Full Name", count(flight_booking.customer_id) AS "Number of Bookings", SUM (flight_booking.total_cost) AS "Total Spent" FROM lead_customer, flight_booking WHERE lead_customer.customer_id = flight_booking.customer_id GROUP BY lead_customer.customer_id ORDER BY SUM(flight_booking.total_cost) DESC;
+SELECT leadcustomer.customer_id, CONCAT(first_name , ' ' , last_name ) AS "Full Name", count(flightbooking.customer_id) AS "Number of Bookings", SUM (flightbooking.total_cost) AS "Total Spent" FROM leadcustomer, flightbooking WHERE leadcustomer.customer_id = flightbooking.customer_id GROUP BY leadcustomer.customer_id ORDER BY SUM(flightbooking.total_cost) DESC;
 
