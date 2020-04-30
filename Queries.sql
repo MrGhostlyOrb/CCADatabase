@@ -63,12 +63,12 @@ SELECT leadcustomer.customer_id, first_name AS "First Name", last_name AS "Last 
 --6
 --a)
 BEGIN;
-INSERT INTO flightbooking(booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost)
-SELECT 513, 12, 103, 3, 'R', current_date, 3*flight.price_per_seat
-FROM flightbooking  INNER JOIN flight ON flightbooking.flight_id = flight.flight_id WHERE flightbooking.flight_id='103'
-AND EXISTS(Select * from leadcustomer where customer_id = '12' or last_name = 'Sayers');
+SELECT * FROM leadcustomer WHERE customer_id = 12 OR last_name = 'Sayers';
+--If above statement works, skip rollback
 ROLLBACK;
-SELECT * from flightbooking WHERE booking_id='513';
+INSERT INTO flightbooking VALUES (513, 12, 103, 3, 'R', current_date, 3*flight.price_per_seat);
+--If above statement works, skip rollback and execute commit
+ROLLBACK;
 COMMIT;
 END;
 
