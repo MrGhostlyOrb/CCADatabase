@@ -74,18 +74,36 @@ END;
 
 --b)
 BEGIN;
-INSERT INTO flightbooking(booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost)
-SELECT 513, 12, 103, 3, 'R', current_date, 3*flight.price_per_seat
-FROM flightbooking  INNER JOIN flight ON flightbooking.flight_id = flight.flight_id WHERE flightbooking.flight_id='103'
-AND EXISTS(Select * from leadcustomer where customer_id = '12' or last_name = 'Sayers');
+INSERT INTO leadcustomer(customer_id, first_name, last_name, billing_address, email)
+VALUES (9, 'Dan', 'Sayers', '39a Morley Lane, Southampton', 'D.Smith@hotmail.com');
 ROLLBACK;
-SELECT * from flightbooking WHERE booking_id='513';
+INSERT INTO flightbooking(booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost)
+VALUES(514, 9, 103, 3, 'R', current_date, 90);
+ROLLBACK;
 COMMIT;
 END;
 
 --c)
+BEGIN;
+INSERT INTO leadcustomer(customer_id, first_name, last_name, billing_address, email)
+VALUES (13, 'Ben', 'Morgan', '1 The Street, Norwich', 'b.morgan@hotmail.com');
+ROLLBACK;
+INSERT INTO flightbooking(booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost)
+VALUES(515, 13, 103, 3, 'R', current_date, 90);
+ROLLBACK;
+COMMIT;
+END;
 
 --d)
+BEGIN;
+INSERT INTO leadcustomer(customer_id, first_name, last_name, billing_address, email)
+VALUES (14, 'Peter', 'Brown', '3a Hill Street, Southampton', 'P.Brown@hotmail.com');
+ROLLBACK;
+INSERT INTO flightbooking(booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost)
+VALUES(516, 14, 103, 2, 'R', current_date, 60);
+ROLLBACK;
+COMMIT;
+END;
 
 --7
 --a)
