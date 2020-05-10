@@ -10,38 +10,38 @@ INSERT INTO lead_customer (customer_id, first_name, last_name, billing_address, 
 
 --Passenger Example
 INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
-INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (100, 'Dave', 'Lee', '55', 'GB', '2017-04-07');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (101, 'Mysha', 'Storey', '45', 'US', '2017-04-08');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (102, 'Rheanna', 'Allman', '35', 'SA', '2017-04-09');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (103, 'Jameson', 'Bush', '44', 'US', '2017-04-10');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (104, 'Vivien', 'Acevedo', '34', 'SA', '2017-04-11');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (105, 'Ed', 'Croft', '55', '24', '2017-04-17');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (106, 'Dominic', 'Enriquez', '65', 'GE', '2017-04-27');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (107, 'Sahib', 'Reeve', '73', 'FI', '2017-04-17');
+INSERT INTO passenger (passenger_id, first_name, last_name, passport_no, nationality, dob) VALUES (108, 'Manav', 'Norton', '23', 'SW', '2017-04-23');
 
 --Flight Example
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
-INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (101, '1970-01-01 00:00:01', 'JFK', 'JFK', 30, 40);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (11, '2020-01-01 00:00:01', 'JFK', 'MAN', 30, 40);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (12, '2026-02-01 00:00:01', 'MAN', 'JFK', 30, 80);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (13, '2025-03-01 00:00:01', 'FLO', 'ATL', 30, 100);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (14, '2024-04-01 00:00:01', 'JFK', 'KZS', 30, 50);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (15, '2023-05-01 00:00:01', 'GAT', 'HET', 30, 60);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (16, '2022-05-01 00:00:01', 'GAT', 'JFK', 30, 70);
+INSERT INTO flight (flight_id, flight_date, origin, destination, max_capacity, price_per_seat) VALUES (17, '2021-06-01 00:00:01', 'KLM', 'JFK', 30, 80);
 
 
 --FlightBooking Example
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
-INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 101, 50, 'R', '1970-01-01 00:00:01', 1000.10);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (500, 100, 11, 50, 'R', '2021-07-01 00:00:01', 40);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (501, 101, 12, 50, 'R', '2022-06-01 00:00:01', 50);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (502, 102, 13, 50, 'R', '2021-05-01 00:00:01', 60);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (503, 103, 14, 50, 'R', '2022-04-01 00:00:01', 70);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (504, 104, 15, 50, 'R', '2021-03-01 00:00:01', 80);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (505, 105, 16, 50, 'R', '2023-02-01 00:00:01', 90);
+INSERT INTO flight_booking (booking_id, customer_id, flight_id, num_seats, status, booking_time, total_cost) VALUES (506, 106, 17, 50, 'R', '2024-01-01 00:00:01', 100);
 
 --SeatBooking Example
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
-INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '6A');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (500, 100, '7B');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (501, 101, '9F');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (502, 102, '8G');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (503, 103, '3A');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (504, 104, '5A');
+INSERT INTO seat_booking (booking_id, passenger_id, seat_number) VALUES (505, 105, '6C');

@@ -66,11 +66,8 @@ CREATE OR REPLACE FUNCTION CheckSeatNum()
  RETURNS trigger AS
 $$
 begin
--- if totalhours+ new hours >100 for project + emp
  if ((SELECT Coalesce(flight.max_capacity - SUM(flightbooking.num_seats),0) - new.num_seats FROM flight, flightbooking
 WHERE flight.flight_id = flightbooking.flight_id AND flightbooking.status != 'C' GROUP BY flight.flight_id HAVING flight.flight_id = new.flight_id) < 0)
-
--- raise exception and return values causing problems
 then raise EXCEPTION 'Seats cannot be booked';
  else
 return new;
