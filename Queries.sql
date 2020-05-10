@@ -118,7 +118,7 @@ UPDATE flightbooking SET status = 'C' WHERE booking_id = 509;
 SELECT * FROM flightbooking WHERE booking_id = 509;
 
 --b)
-SELECT COUNT(DISTINCT flightbooking) AS "Number of Bookings", COALESCE(CASE WHEN flightbooking.status = 'R' THEN SUM(flightbooking.num_seats) END,0) AS "Reserved", COALESCE(CASE WHEN flightbooking.status = 'C' THEN SUM(flightbooking.num_seats) END,0) AS "Cancelled", COALESCE(flight.max_capacity - SUM(flightbooking.num_seats),0) AS "Avaliable" FROM flightbooking, flight WHERE flightbooking.flight_id = 104 AND flight.flight_id = flightbooking.flight_id GROUP BY flightbooking.status, flight.flight_id;
+SELECT COUNT(DISTINCT flightbooking) AS "Number of Bookings", COALESCE(CASE WHEN flightbooking.status = 'R' THEN SUM(flightbooking.num_seats) END,0) AS "Reserved", COALESCE(CASE WHEN flightbooking.status = 'C' THEN SUM(flightbooking.num_seats) END,0) AS "Cancelled", COALESCE(flight.max_capacity - SUM(flightbooking.num_seats),0) AS "Avaliable" FROM flightbooking, flight WHERE flightbooking.flight_id = 104 AND flight.flight_id = flightbooking.flight_id AND flightbooking.status = 'R' GROUP BY flightbooking.status, flight.flight_id;
 
 --c)
 SELECT leadcustomer.customer_id, first_name AS "First Name", last_name AS "Last Name", count(flightbooking.customer_id) AS "Number of Bookings", SUM (flightbooking.total_cost) AS "Total Spent" FROM leadcustomer, flightbooking WHERE leadcustomer.customer_id = flightbooking.customer_id GROUP BY leadcustomer.customer_id ORDER BY SUM(flightbooking.total_cost) DESC;
